@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ЖОНДОРМАН v2.0 - Русский Arduino</title>
+    <style>
+        body { font-family: Arial; max-width: 1000px; margin: 20px auto; padding: 20px; background: #f5f5f5; }
+        textarea { width: 100%; height: 300px; font-size: 16px; font-family: monospace; border: 2px solid #00979D; border-radius: 5px; padding: 10px; }
+        button { padding: 15px 30px; font-size: 18px; background: #00979D; color: white; border: none; cursor: pointer; margin: 10px 5px; border-radius: 5px; }
+        button:hover { background: #00777D; }
+        button.copy { background: #4CAF50; }
+        button.copy:hover { background: #45a049; }
+        button.download { background: #2196F3; }
+        button.download:hover { background: #0b7dda; }
+        pre { background: #fff; padding: 15px; white-space: pre-wrap; border: 1px solid #ddd; border-radius: 5px; }
+        h1 { color: #00979D; }
+        h2 { color: #00979D; margin-top: 30px; }
+        .dictionary { background: white; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #ddd; }
+        .dictionary h3 { margin-top: 0; color: #00979D; }
+        table { width: 100%; border-collapse: collapse; }
+        td, th { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #00979D; color: white; }
+        tr:hover { background: #f5f5f5; }
+        .category { font-weight: bold; color: #00979D; margin: 15px 0 5px 0; background: #e0f7f8; padding: 5px 10px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>🤖 ЖОНДОРМАН v2.0 — Пиши на русском для Arduino!</h1>
+    
+    <p>📝 <b>Напиши код здесь</b> ↓ 🔄 <b>Переведи</b> → 📋 <b>Скопируй в Arduino IDE</b></p>
+    
+    <textarea id="russianCode" placeholder="Пиши код здесь...&#10;&#10;функция настройка() {&#10;   сериал_начать(9600);&#10;   пин_врежиме(13, ВЫХОД);&#10;}&#10;&#10;функция цикл() {&#10;   пин_подаем(13, ВКЛ);&#10;   вывод(&quot;Привет, Жондорман!&quot;);&#10;   ждать(1000);&#10;   пин_подаем(13, ВЫКЛ);&#10;   ждать(1000);&#10;}"></textarea>
+    
+    <button onclick="perevod()">🔄 ПЕРЕВЕСТИ</button>
+    <button class="copy" onclick="kopirovat()">📋 КОПИРОВАТЬ</button>
+    <button class="download" onclick="skachat()">💾 СКАЧАТЬ .ino</button>
+    <a href="https://arduino.ru/Reference" target="_blank" style="text-decoration: none;">
+    <button style="background: #E91E63; color: white; padding: 15px 30px; font-size: 18px; border: none; cursor: pointer; margin: 10px 5px; border-radius: 5px;">📚 СПРАВОЧНИК ARDUINO</button>
+</a>
+    <h3>📟 Результат для Arduino IDE:</h3>
+    <pre id="cppOutput">// Здесь появится переведённый код...</pre>
+
+    <!-- 📖 СЛОВАРЬ-ШПАРГАЛКА -->
+    <h2>📖 СЛОВАРЬ КОМАНД</h2>
+    <div class="dictionary">
+        
+        <p class="category">🔧 СТРУКТУРА ПРОГРАММЫ</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>функция, функ</td><td>void</td><td>Объявление функции</td></tr>
+            <tr><td>настройка, настройки</td><td>setup</td><td>Выполняется один раз</td></tr>
+            <tr><td>цикл</td><td>loop</td><td>Бесконечный цикл</td></tr>
+            <tr><td>вернуть</td><td>return</td><td>Возврат значения</td></tr>
+        </table>
+        
+        <p class="category">📦 ПЕРЕМЕННЫЕ</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>целое</td><td>int</td><td>Целое число</td></tr>
+            <tr><td>строка</td><td>String</td><td>Текст</td></tr>
+            <tr><td>логика</td><td>boolean</td><td>Да/Нет</td></tr>
+            <tr><td>дробь</td><td>float</td><td>Дробное число</td></tr>
+            <tr><td>байт</td><td>byte</td><td>0-255</td></tr>
+            <tr><td>символ</td><td>char</td><td>Один символ</td></tr>
+        </table>
+        
+        <p class="category">🔀 УСЛОВИЯ И ЦИКЛЫ</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>если</td><td>if</td><td>Условие</td></tr>
+            <tr><td>иначе</td><td>else</td><td>Иначе</td></tr>
+            <tr><td>для</td><td>for</td><td>Цикл со счётчиком</td></tr>
+            <tr><td>пока</td><td>while</td><td>Цикл с условием</td></tr>
+        </table>
+        
+        <p class="category">📟 СЕРИАЛ (последовательный порт)</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>сериал_начать(скорость)</td><td>Serial.begin()</td><td>Открыть порт</td></tr>
+            <tr><td>вывод("текст")</td><td>Serial.println()</td><td>Вывести с новой строки</td></tr>
+            <tr><td>вывести("текст")</td><td>Serial.print()</td><td>Вывести без переноса</td></tr>
+        </table>
+        
+        <p class="category">⚡ ПИНЫ</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>пин_врежиме(пин, режим)</td><td>pinMode()</td><td>Режим пина</td></tr>
+            <tr><td>пин_подаем(пин, значение)</td><td>digitalWrite()</td><td>Подать на пин</td></tr>
+            <tr><td>пин_читать(пин)</td><td>digitalRead()</td><td>Читать с пина</td></tr>
+            <tr><td>аналог_читать(пин)</td><td>analogRead()</td><td>Читать аналог</td></tr>
+            <tr><td>аналог_подать(пин, знач)</td><td>analogWrite()</td><td>ШИМ сигнал</td></tr>
+            <tr><td>ВХОД, ВЫХОД</td><td>INPUT, OUTPUT</td><td>Режимы пина</td></tr>
+            <tr><td>ВХОД_ПОДТЯЖКА</td><td>INPUT_PULLUP</td><td>Вход с подтяжкой</td></tr>
+            <tr><td>ВКЛ, ВЫКЛ</td><td>HIGH, LOW</td><td>Сигнал</td></tr>
+        </table>
+        
+        <p class="category">🦾 СЕРВО (Servo.h)</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>серво_подключить(пин)</td><td>servo.attach()</td><td>Подключить серво</td></tr>
+            <tr><td>серво_повернуть(угол)</td><td>servo.write()</td><td>Повернуть</td></tr>
+            <tr><td>серво_угол()</td><td>servo.read()</td><td>Узнать угол</td></tr>
+            <tr><td>серво_отключить()</td><td>servo.detach()</td><td>Отключить</td></tr>
+        </table>
+        
+        <p class="category">📺 ДИСПЛЕЙ LCD (LiquidCrystal.h)</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>дисплей_начать(кол, стр)</td><td>lcd.begin()</td><td>Включить дисплей</td></tr>
+            <tr><td>дисплей_очистить()</td><td>lcd.clear()</td><td>Очистить экран</td></tr>
+            <tr><td>дисплей_курсор(кол, стр)</td><td>lcd.setCursor()</td><td>Позиция курсора</td></tr>
+            <tr><td>дисплей_печать("текст")</td><td>lcd.print()</td><td>Вывести на экран</td></tr>
+            <tr><td>дисплей_мигать()</td><td>lcd.blink()</td><td>Мигающий курсор</td></tr>
+            <tr><td>дисплей_не_мигать()</td><td>lcd.noBlink()</td><td>Убрать мигание</td></tr>
+        </table>
+        
+        <p class="category">🎵 ЗВУК</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>пищать(пин, частота)</td><td>tone()</td><td>Издать звук</td></tr>
+            <tr><td>не_пищать(пин)</td><td>noTone()</td><td>Остановить звук</td></tr>
+        </table>
+        
+        <p class="category">⏱️ ВРЕМЯ</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>ждать(мс), пауза(мс)</td><td>delay()</td><td>Пауза</td></tr>
+            <tr><td>миллис()</td><td>millis()</td><td>Время работы</td></tr>
+            <tr><td>микро()</td><td>micros()</td><td>Микросекунды</td></tr>
+        </table>
+        
+        <p class="category">🔢 МАТЕМАТИКА</p>
+        <table>
+            <tr><th>Русский</th><th>Arduino C++</th><th>Описание</th></tr>
+            <tr><td>мин, макс</td><td>min, max</td><td>Минимум/максимум</td></tr>
+            <tr><td>абс(число)</td><td>abs()</td><td>Модуль числа</td></tr>
+            <tr><td>ограничить(зн, мин, макс)</td><td>constrain()</td><td>Ограничить</td></tr>
+            <tr><td>карта(зн, от1, до1, от2, до2)</td><td>map()</td><td>Перенос диапазона</td></tr>
+            <tr><td>степень, корень</td><td>pow, sqrt</td><td>Степень и корень</td></tr>
+            <tr><td>случайное(от, до)</td><td>random()</td><td>Случайное число</td></tr>
+        </table>
+        
+    </div>
+
+    <script>
+        // 🔑 СЛОВАРЬ
+        const slovar = {
+            // СТРУКТУРА
+            "настройка": "setup",
+            "настройки": "setup",
+            "цикл": "loop",
+            "функция": "void",
+            "функ": "void",
+            "вернуть": "return",
+            
+            // ПЕРЕМЕННЫЕ
+            "целое": "int",
+            "строка": "String",
+            "логика": "boolean",
+            "дробь": "float",
+            "байт": "byte",
+            "символ": "char",
+            
+            // УСЛОВИЯ
+            "иначе если": "else if",
+            "если": "if",
+            "иначе": "else",
+            
+            // ЦИКЛЫ
+            "для": "for",
+            "пока": "while",
+            
+            // СЕРИАЛ
+            "сериал_начать": "Serial.begin",
+            "вывод": "Serial.println",
+            "вывести": "Serial.print",
+            "ждать": "delay",
+            "пауза": "delay",
+            
+            // ПИНЫ
+            "пин_врежиме": "pinMode",
+            "пин_подаем": "digitalWrite",
+            "пин_читать": "digitalRead",
+            "аналог_читать": "analogRead",
+            "аналог_подать": "analogWrite",
+            
+            // КОНСТАНТЫ
+            "ВХОД_ПОДТЯЖКА": "INPUT_PULLUP",
+            "ВХОД": "INPUT",
+            "ВЫХОД": "OUTPUT",
+            "ВКЛ": "HIGH",
+            "ВЫКЛ": "LOW",
+            
+            // СЕРВО
+            "серво_подключить": "servo.attach",
+            "серво_повернуть": "servo.write",
+            "серво_угол": "servo.read",
+            "серво_отключить": "servo.detach",
+            
+            // ДИСПЛЕЙ
+            "дисплей_начать": "lcd.begin",
+            "дисплей_очистить": "lcd.clear",
+            "дисплей_курсор": "lcd.setCursor",
+            "дисплей_печать": "lcd.print",
+            "дисплей_мигать": "lcd.blink",
+            "дисплей_не_мигать": "lcd.noBlink",
+            
+            // ЗВУК
+            "пищать": "tone",
+            "не_пищать": "noTone",
+            
+            // ВРЕМЯ
+            "миллис": "millis",
+            "микро": "micros",
+            
+            // МАТЕМАТИКА
+            "ограничить": "constrain",
+            "случайное": "random",
+            "степень": "pow",
+            "корень": "sqrt",
+            "карта": "map",
+            "макс": "max",
+            "мин": "min",
+            "абс": "abs",
+            
+            // ОПЕРАТОРЫ
+            "БОЛЬШЕ_РАВНО": ">=",
+            "МЕНЬШЕ_РАВНО": "<=",
+            "НЕ_РАВНО": "!=",
+            "БОЛЬШЕ": ">",
+            "МЕНЬШЕ": "<",
+            "равно": "==",
+        };
+
+        function perevod() {
+            let kod = document.getElementById('russianCode').value;
+            let stroki = kod.split('\n');
+            let result = [];
+            
+            result.push("//==================================");
+            result.push("// код создан ЖОНДОРМАН менен!");
+            result.push("//==================================");
+            result.push("#include <Arduino.h>");
+            result.push("");
+            
+            for (let stroka of stroki) {
+                let original = stroka;
+                let probely = stroka.match(/^\s*/)[0];
+                let kodBezProb = stroka.trim();
+                
+                if (!kodBezProb || kodBezProb.startsWith("//")) {
+                    result.push(original);
+                    continue;
+                }
+                
+                let kluchi = Object.keys(slovar).sort((a, b) => b.length - a.length);
+                
+                for (let rus of kluchi) {
+                    let cpp = slovar[rus];
+                    kodBezProb = kodBezProb.split(rus).join(cpp);
+                }
+                
+                result.push(probely + kodBezProb);
+            }
+            
+            document.getElementById('cppOutput').textContent = result.join('\n');
+        }
+
+        function kopirovat() {
+            let kod = document.getElementById('cppOutput').textContent;
+            navigator.clipboard.writeText(kod).then(() => {
+                alert('✅ Скопировано! Вставь в Arduino IDE (Ctrl+V)');
+            });
+        }
+
+        function skachat() {
+            let kod = document.getElementById('cppOutput').textContent;
+            let blob = new Blob([kod], {type: 'text/plain'});
+            let a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'jondorman.ino';
+            a.click();
+            alert('✅ Файл jondorman.ino скачан!');
+        }
+    </script>
+</body>
+</html>
